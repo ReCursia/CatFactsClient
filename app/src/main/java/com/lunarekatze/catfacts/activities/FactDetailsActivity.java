@@ -1,9 +1,12 @@
-package com.lunarekatze.catfacts;
+package com.lunarekatze.catfacts.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.lunarekatze.catfacts.R;
+import com.lunarekatze.catfacts.models.Fact;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

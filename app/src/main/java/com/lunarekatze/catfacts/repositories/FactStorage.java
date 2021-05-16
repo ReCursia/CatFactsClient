@@ -1,10 +1,9 @@
-package com.lunarekatze.catfacts;
-
-import android.content.Context;
+package com.lunarekatze.catfacts.repositories;
 
 import androidx.lifecycle.MutableLiveData;
 
-import java.util.ArrayList;
+import com.lunarekatze.catfacts.models.Fact;
+
 import java.util.List;
 
 public class FactStorage {

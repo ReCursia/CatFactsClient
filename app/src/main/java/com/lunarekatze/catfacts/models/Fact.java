@@ -1,4 +1,4 @@
-package com.lunarekatze.catfacts;
+package com.lunarekatze.catfacts.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

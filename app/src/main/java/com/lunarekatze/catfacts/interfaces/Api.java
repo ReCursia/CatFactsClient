@@ -1,4 +1,6 @@
-package com.lunarekatze.catfacts;
+package com.lunarekatze.catfacts.interfaces;
+
+import com.lunarekatze.catfacts.models.Fact;
 
 import java.util.List;
 

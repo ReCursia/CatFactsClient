@@ -1,14 +1,18 @@
-package com.lunarekatze.catfacts;
+package com.lunarekatze.catfacts.activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.lunarekatze.catfacts.adapters.FactsAdapter;
+import com.lunarekatze.catfacts.viewmodels.FactsViewModel;
+import com.lunarekatze.catfacts.R;
+import com.lunarekatze.catfacts.models.Fact;
 
 import java.util.List;
 

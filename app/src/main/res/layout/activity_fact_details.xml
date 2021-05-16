@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".FactDetailsActivity">
+    tools:context=".activities.FactDetailsActivity">
 
     <TextView
         android:id="@+id/fact_title_view"
@@ -24,7 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
-        app:srcCompat="@drawable/fact_image" />
+        app:srcCompat="@drawable/fact_image"
+        android:contentDescription="@string/image_view_desc"/>
 
     <TextView
         android:id="@+id/fact_text_view"

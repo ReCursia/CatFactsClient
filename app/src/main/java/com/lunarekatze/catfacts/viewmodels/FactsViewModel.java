@@ -1,10 +1,12 @@
-package com.lunarekatze.catfacts;
-
-import android.util.Log;
+package com.lunarekatze.catfacts.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.lunarekatze.catfacts.interfaces.Api;
+import com.lunarekatze.catfacts.models.Fact;
+import com.lunarekatze.catfacts.repositories.FactStorage;
 
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class FactsViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<List<Fact>> call, Throwable t) {
-
+                
             }
         });
     }
