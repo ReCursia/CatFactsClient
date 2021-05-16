@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CatFacts</string>
+    <string name="fact_number">Fact #%d</string>
 </resources>
