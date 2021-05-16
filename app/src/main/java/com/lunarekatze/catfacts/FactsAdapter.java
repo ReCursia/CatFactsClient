@@ -1,6 +1,7 @@
 package com.lunarekatze.catfacts;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,12 @@ public class FactsAdapter extends RecyclerView.Adapter<FactsAdapter.FactViewHold
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Tag", "onClick：" + holder.getAbsoluteAdapterPosition());
+                Fact fact = getFact(holder.getAbsoluteAdapterPosition());
+
+                Intent intent = new Intent(v.getContext(), FactDetailsActivity.class);
+                intent.putExtra("fact_number", holder.getAbsoluteAdapterPosition()+1);
+                intent.putExtra("fact", fact);
+                v.getContext().startActivity(intent);
             }
         });
         return holder;
@@ -47,6 +53,15 @@ public class FactsAdapter extends RecyclerView.Adapter<FactsAdapter.FactViewHold
     @Override
     public int getItemCount() {
         return mFactList.size();
+    }
+
+    public Fact getFact(int position) {
+        if(mFactList != null) {
+            if(mFactList.size() > 0) {
+                return mFactList.get(position);
+            }
+        }
+        return null;
     }
 
     class FactViewHolder extends RecyclerView.ViewHolder {
