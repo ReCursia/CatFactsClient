@@ -1,5 +1,7 @@
 package com.lunarekatze.catfacts;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,16 +15,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FactsViewModel extends ViewModel {
+    private FactStorage mFactStorage;
     // the data we will get asynchronously
-    private MutableLiveData<List<Fact>> mFactList;
+    //private MutableLiveData<List<Fact>> mFactList;
+
+    public FactsViewModel() {
+        mFactStorage = FactStorage.getInstance();
+    }
 
     public LiveData<List<Fact>> getFacts() {
-        if (mFactList == null) {
-            mFactList = new MutableLiveData<List<Fact>>();
-            loadFacts();
-        }
+        loadFacts();
 
-        return mFactList;
+        return mFactStorage.getFacts();
     }
 
     private void loadFacts() {
@@ -37,7 +41,9 @@ public class FactsViewModel extends ViewModel {
         call.enqueue(new Callback<List<Fact>>() {
             @Override
             public void onResponse(Call<List<Fact>> call, Response<List<Fact>> response) {
+                MutableLiveData<List<Fact>> mFactList = new MutableLiveData<>();
                 mFactList.setValue(response.body());
+                mFactStorage.setFacts(response.body());
             }
 
             @Override

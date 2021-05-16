@@ -17,8 +17,6 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     FactsAdapter mAdapter;
 
-    List<Fact> mFactList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
