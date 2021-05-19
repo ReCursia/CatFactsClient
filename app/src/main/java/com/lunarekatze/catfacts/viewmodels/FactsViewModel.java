@@ -1,12 +1,15 @@
 package com.lunarekatze.catfacts.viewmodels;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.lunarekatze.catfacts.database.FactItem;
+import com.lunarekatze.catfacts.database.FactsRepository;
 import com.lunarekatze.catfacts.interfaces.Api;
 import com.lunarekatze.catfacts.models.Fact;
-import com.lunarekatze.catfacts.repositories.FactStorage;
 
 import java.util.List;
 
@@ -16,42 +19,26 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class FactsViewModel extends ViewModel {
-    private FactStorage mFactStorage;
-    // the data we will get asynchronously
-    //private MutableLiveData<List<Fact>> mFactList;
+public class FactsViewModel extends AndroidViewModel {
 
-    public FactsViewModel() {
-        mFactStorage = FactStorage.getInstance();
+    private FactsRepository mFactRepository;
+    private LiveData<List<FactItem>> mAllFacts;
+
+    public FactsViewModel(Application app) {
+        super(app);
+        mFactRepository = new FactsRepository(app);
+        mAllFacts = mFactRepository.getmAllFacts();
     }
 
-    public LiveData<List<Fact>> getFacts() {
-        loadFacts();
-
-        return mFactStorage.getFacts();
+    public LiveData<List<FactItem>> getFacts() {
+        return mAllFacts;
     }
 
-    private void loadFacts() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    public void insert(FactItem fact) {
+        mFactRepository.insert(fact);
+    }
 
-        Api api = retrofit.create(Api.class);
-        Call<List<Fact>> call = api.getFacts();
-
-        call.enqueue(new Callback<List<Fact>>() {
-            @Override
-            public void onResponse(Call<List<Fact>> call, Response<List<Fact>> response) {
-                MutableLiveData<List<Fact>> mFactList = new MutableLiveData<>();
-                mFactList.setValue(response.body());
-                mFactStorage.setFacts(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<List<Fact>> call, Throwable t) {
-                
-            }
-        });
+    public void deleteAll() {
+        mFactRepository.deleteAll();
     }
 }

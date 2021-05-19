@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lunarekatze.catfacts.R;
 import com.lunarekatze.catfacts.activities.FactDetailsActivity;
-import com.lunarekatze.catfacts.models.Fact;
+import com.lunarekatze.catfacts.database.FactItem;
 
 import java.util.List;
 
 public class FactsAdapter extends RecyclerView.Adapter<FactsAdapter.FactViewHolder> {
 
     Context mContext;
-    List<Fact> mFactList;
+    List<FactItem> mFactList;
 
-    public FactsAdapter (Context mContext, List<Fact> mFactList) {
+    public FactsAdapter (Context mContext, List<FactItem> mFactList) {
         this.mContext = mContext;
         this.mFactList = mFactList;
     }
@@ -32,23 +32,21 @@ public class FactsAdapter extends RecyclerView.Adapter<FactsAdapter.FactViewHold
         View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_layout, parent, false);
         final FactViewHolder holder = new FactViewHolder(view);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fact fact = getFact(holder.getAbsoluteAdapterPosition());
+        view.setOnClickListener(v -> {
+            FactItem fact = getFact(holder.getAbsoluteAdapterPosition());
 
-                Intent intent = new Intent(v.getContext(), FactDetailsActivity.class);
-                intent.putExtra("fact_number", holder.getAbsoluteAdapterPosition()+1);
-                intent.putExtra("fact", fact);
-                v.getContext().startActivity(intent);
-            }
+            Intent intent = new Intent(v.getContext(), FactDetailsActivity.class);
+            intent.putExtra("fact_id", fact.getFact_id());
+            intent.putExtra("fact_number", holder.getAbsoluteAdapterPosition()+1);
+
+            v.getContext().startActivity(intent);
         });
         return holder;
     }
 
     @Override
     public void  onBindViewHolder(@NonNull FactViewHolder holder, int position) {
-        Fact fact = mFactList.get(position);
+        FactItem fact = mFactList.get(position);
         holder.textView.setText(fact.getText());
         holder.factTitleView.setText(String.format(this.mContext.getString(R.string.fact_number), position + 1));
     }
@@ -58,7 +56,7 @@ public class FactsAdapter extends RecyclerView.Adapter<FactsAdapter.FactViewHold
         return mFactList.size();
     }
 
-    public Fact getFact(int position) {
+    private FactItem getFact(int position) {
         if(mFactList != null) {
             if(mFactList.size() > 0) {
                 return mFactList.get(position);
@@ -71,7 +69,7 @@ public class FactsAdapter extends RecyclerView.Adapter<FactsAdapter.FactViewHold
         TextView textView;
         TextView factTitleView;
 
-        public FactViewHolder(View itemView) {
+        FactViewHolder(View itemView) {
             super(itemView);
 
             textView = itemView.findViewById(R.id.text_view);

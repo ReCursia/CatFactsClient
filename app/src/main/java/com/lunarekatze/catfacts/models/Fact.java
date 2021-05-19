@@ -1,17 +1,22 @@
 package com.lunarekatze.catfacts.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.gson.annotations.SerializedName;
 
-public class Fact implements Parcelable {
+public class Fact {
 
     private FactStatus status;
     private String type;
     private Boolean deleted;
+
+    @SerializedName("_id")
     private String id;
+
     private String user;
     private String text;
+
+    @SerializedName("__v")
     private Integer v;
+
     private String source;
     private String updatedAt;
     private String createdAt;
@@ -30,37 +35,6 @@ public class Fact implements Parcelable {
         this.createdAt = createdAt;
         this.used = used;
     }
-
-    protected Fact(Parcel in) {
-        type = in.readString();
-        byte tmpDeleted = in.readByte();
-        deleted = tmpDeleted == 0 ? null : tmpDeleted == 1;
-        id = in.readString();
-        user = in.readString();
-        text = in.readString();
-        if (in.readByte() == 0) {
-            v = null;
-        } else {
-            v = in.readInt();
-        }
-        source = in.readString();
-        updatedAt = in.readString();
-        createdAt = in.readString();
-        byte tmpUsed = in.readByte();
-        used = tmpUsed == 0 ? null : tmpUsed == 1;
-    }
-
-    public static final Creator<Fact> CREATOR = new Creator<Fact>() {
-        @Override
-        public Fact createFromParcel(Parcel in) {
-            return new Fact(in);
-        }
-
-        @Override
-        public Fact[] newArray(int size) {
-            return new Fact[size];
-        }
-    };
 
     public FactStatus getStatus() {
         return status;
@@ -106,31 +80,23 @@ public class Fact implements Parcelable {
         return used;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(type);
-        parcel.writeByte((byte) (deleted == null ? 0 : deleted ? 1 : 2));
-        parcel.writeString(id);
-        parcel.writeString(user);
-        parcel.writeString(text);
-        if (v == null) {
-            parcel.writeByte((byte) 0);
-        } else {
-            parcel.writeByte((byte) 1);
-            parcel.writeInt(v);
+    public class FactStatus{
+        public Boolean getVerified() {
+            return verified;
         }
-        parcel.writeString(source);
-        parcel.writeString(updatedAt);
-        parcel.writeString(createdAt);
-        parcel.writeByte((byte) (used == null ? 0 : used ? 1 : 2));
-    }
 
-    private class FactStatus{
+        public Integer getSentCount() {
+            return sentCount;
+        }
+
+        public void setVerified(Boolean verified) {
+            this.verified = verified;
+        }
+
+        public void setSentCount(Integer sentCount) {
+            this.sentCount = sentCount;
+        }
+
         private Boolean verified;
         private Integer sentCount;
     }
