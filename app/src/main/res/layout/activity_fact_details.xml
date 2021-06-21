@@ -20,11 +20,11 @@
         style="@style/TextAppearance.AppCompat.Title.Inverse"
         tools:text="Fact #Number"/>
 
+    <!-- TODO (Review) в выкаченном проекте нет fact_image, не могу собраться -->
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
-        app:srcCompat="@drawable/fact_image"
         android:contentDescription="@string/image_view_desc"/>
 
     <TextView

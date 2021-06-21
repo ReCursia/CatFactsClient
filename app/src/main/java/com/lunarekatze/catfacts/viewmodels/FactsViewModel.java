@@ -32,6 +32,7 @@ public class FactsViewModel extends ViewModel {
     }
 
     private void loadFacts() {
+        //TODO как раз таки этот код должен быть в репозитории, и он не должен быть в курсе про ViewModel
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Api.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -44,13 +45,14 @@ public class FactsViewModel extends ViewModel {
             @Override
             public void onResponse(Call<List<Fact>> call, Response<List<Fact>> response) {
                 MutableLiveData<List<Fact>> mFactList = new MutableLiveData<>();
+                //TODO нет проверки response.isSuccessful() прежде чем делать дальнейшие шаги
                 mFactList.setValue(response.body());
                 mFactStorage.setFacts(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Fact>> call, Throwable t) {
-                
+                //TODO хотя бы логи добавить Log.e(...) или же оповестить пользователя через тосты
             }
         });
     }

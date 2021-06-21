@@ -35,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         model.getFacts().observe(this, new Observer<List<Fact>>() {
             @Override
             public void onChanged(@Nullable List<Fact> mFactList) {
+                /* TODO (Review) нет нужды каждый раз создавать инстанс адаптера, можно добавить метод setFacts в адаптер
+                    и делать notifyDataSetChanged()
+                 */
                 mAdapter = new FactsAdapter(MainActivity.this, mFactList);
                 mRecyclerView.setAdapter(mAdapter);
             }

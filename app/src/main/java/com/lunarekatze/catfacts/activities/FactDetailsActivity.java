@@ -27,6 +27,7 @@ public class FactDetailsActivity extends AppCompatActivity {
         mFactCreatedAt = findViewById(R.id.fact_createdAt_view);
         mFactTitle = findViewById(R.id.fact_title_view);
 
+        // TODO название c get неудачное, лучше showDataFromIntent(), так как ничего не возвращает
         getDataFromIntent();
     }
 
@@ -38,6 +39,11 @@ public class FactDetailsActivity extends AppCompatActivity {
             mFactTitle.setText(String.format(getString(R.string.fact_number), factNumber));
             mFactText.setText(fact.getText());
 
+            //TODO жаль что нет работы с изображениями, можешь почитать про библиотеки для работы с ними Glide/Picasso
+
+
+            // TODO лучше этим заниматься на уровне ViewModel, по хорошему в Activity/Fragment просто сетать значения уже приведенные
+            // TODO к нужному виду
             try {
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                 Date date = format.parse(fact.getCreatedAt());

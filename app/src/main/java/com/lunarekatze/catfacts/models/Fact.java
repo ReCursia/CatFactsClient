@@ -3,8 +3,12 @@ package com.lunarekatze.catfacts.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+
+//TODO Parcelable можно во вторую активити передавать id, тогда Parcelable будет не нужен
 public class Fact implements Parcelable {
 
+    // TODO большая часть полей не используется, можно убрать
+    // TODO нет префикса m (в остальных местах при этом используется)
     private FactStatus status;
     private String type;
     private Boolean deleted;
